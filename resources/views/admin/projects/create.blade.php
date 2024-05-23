@@ -12,7 +12,7 @@
                 </ul>
             </div>
         @endif
-        <form action="{{ route('admin.projects.store') }}" method="post">
+        <form action="{{ route('admin.projects.store') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
@@ -24,6 +24,14 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
+
+            <div class="mb-3">
+                <label for="cover_image" class="form-label">Uploade Cover Image</label>
+                <input type="file" class="form-control" name="cover_image" id="cover_image" placeholder="cover image"
+                    aria-describedby="fileHelpId" />
+                <div id="coverImageHelper" class="form-text">Uploade a cover image</div>
+            </div>
+
 
             <div class="mb-3">
                 <label for="content" class="form-label">Content</label>
