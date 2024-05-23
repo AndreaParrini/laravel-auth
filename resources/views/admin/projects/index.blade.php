@@ -1,8 +1,20 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container">
-        <h3 class="my-3 text-uppercase text-center">Projects</h3>
+    <div class="bg-dark py-4">
+        <div class="container d-flex justify-content-between align-items-center text-light">
+            <h3 class="my-3 text-uppercase text-center">Projects</h3>
+            <a class="btn btn-primary" href="{{ route('admin.projects.create') }}">Create</a>
+        </div>
+
+    </div>
+    <div class="container mt-4">
+        @if (session('message'))
+            <div class="alert alert-success">
+                {{ session('message') }}
+            </div>
+        @endif
+        @include('partials.error')
         <div class="table-responsive">
             <table class="table table-primary">
                 <thead>
@@ -18,15 +30,61 @@
                 <tbody>
                     @forelse ($projects as $project)
                         <tr class="">
-                            <td scope="row">{{ $project->id }}</td>
+                            <td scope="row">{{ $project->id }}</td>129485
                             <td>{{ $project->title }}</td>
                             <td>{{ $project->content }}</td>
                             <td>
-                                <img src="{{ $project->cover_image }}" alt="Cover Image">
+                                <img src="{{ asset('storage/' . $project->cover_image) }}" alt="Cover Image">
                             </td>
                             <td>{{ $project->slug }}</td>
-                            <td>
-                                <a href="{{ route('admin.projects.show', $project) }}">View</a>
+                            <td class="text-nowrap">
+                                <a class="btn btn-sm btn-primary"
+                                    href="{{ route('admin.projects.show', $project) }}">View</a>
+                                <a class="btn btn-sm btn-secondary"
+                                    href="{{ route('admin.projects.edit', $project) }}">Edit</a>
+                                <!-- Modal trigger button -->
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    data-bs-target="#modalId--{{ $project->id }}">
+                                    Delete
+                                </button>
+
+                                <!-- Modal Body -->
+                                <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
+                                <div class="modal fade" id="modalId--{{ $project->id }}" tabindex="-1"
+                                    data-bs-backdrop="static" data-bs-keyboard="false" role="dialog"
+                                    aria-labelledby="modalTitleId--{{ $project->id }}" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm"
+                                        role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="modalTitleId--{{ $project->id }}">
+                                                    Delete a project
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                You are about to destroy this project :
+                                                <strong>{{ $project->title }}</strong> ?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <form action="{{ route('admin.projects.destroy', $project) }}"
+                                                    method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">
+                                                        Confirm
+                                                    </button>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </td>
                         </tr>
                     @empty
