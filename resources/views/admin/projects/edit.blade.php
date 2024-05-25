@@ -1,4 +1,4 @@
-@extends('layouts.admin');
+@extends('layouts.admin')
 
 @section('content')
     <div class="bg-dark py-4">
@@ -25,6 +25,20 @@
                 @error('title')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="type_id" class="form-label">Type</label>
+                <select class="form-select" name="type_id" id="type_id">
+                    <option selected>Select a type of your project</option>
+                    @foreach ($types as $type)
+                        <option value="{{ $type->id }}"
+                            {{ $type->id == old('type_id', $project->type_id) ? 'selected' : '' }}>
+                            {{ $type->name }}
+                        </option>
+                    @endforeach
+                    <option value="">New Delhi</option>
+                </select>
             </div>
 
             <div class="d-flex gap-4">

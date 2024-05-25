@@ -68,7 +68,8 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         //
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -93,7 +94,7 @@ class ProjectController extends Controller
         $project->update($val_data);
 
 
-        return to_route('admin.projects.index')->with('message', 'Post updated successfully');
+        return to_route('admin.projects.index')->with('message', 'Post ' . $project->id . ' updated successfully');
     }
 
     /**
@@ -107,6 +108,6 @@ class ProjectController extends Controller
         }
         $project->delete();
 
-        return to_route('admin.projects.index')->with('message', 'Post cancelled successfully');
+        return to_route('admin.projects.index')->with('message', 'Post  ' . $project->id . '  cancelled successfully');
     }
 }
