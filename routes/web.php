@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Guest\ProjectController as GuestProjectController;
 use App\Http\Controllers\ProjectController as ControllersProjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('projects', GuestProjectController::class)->only(['index', 'show'])->parameters(['projects' => 'project:slug']);
+
 Route::middleware(['auth', 'verified'])
     ->name('admin.')
     ->prefix('admin')
@@ -29,7 +32,7 @@ Route::middleware(['auth', 'verified'])
         Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
         //Project route here
-        Route::resource('/projects', ProjectController::class);
+        Route::resource('/projects', ProjectController::class)->parameters(['projects' => 'project:slug']);
     });
 
 Route::middleware('auth')->group(function () {
