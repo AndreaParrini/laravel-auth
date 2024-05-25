@@ -4,7 +4,8 @@
     <div class="bg-dark py-4">
         <div class="container d-flex justify-content-between align-items-center text-light">
             <h3 class="my-3 text-uppercase text-center">Projects</h3>
-            <a class="btn btn-primary" href="{{ route('admin.projects.create') }}">Create</a>
+            <a class="btn btn-primary" href="{{ route('admin.projects.create') }}"> <i class="fa fa-plus me-1"
+                    aria-hidden="true"></i>Create</a>
         </div>
 
     </div>
@@ -44,14 +45,14 @@
                             </td>
                             <td>{{ $project->slug }}</td>
                             <td class="text-nowrap">
-                                <a class="btn btn-sm btn-primary"
-                                    href="{{ route('admin.projects.show', $project) }}">View</a>
-                                <a class="btn btn-sm btn-secondary"
-                                    href="{{ route('admin.projects.edit', $project) }}">Edit</a>
+                                <a class="btn btn-sm btn-primary" href="{{ route('admin.projects.show', $project) }}"><i
+                                        class="fa fa-eye me-1" aria-hidden="true"></i>View</a>
+                                <a class="btn btn-sm btn-secondary" href="{{ route('admin.projects.edit', $project) }}"><i
+                                        class="fa fa-pencil me-1" aria-hidden="true"></i>Edit</a>
                                 <!-- Modal trigger button -->
                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                     data-bs-target="#modalId--{{ $project->id }}">
-                                    Delete
+                                    <i class="fa fa-trash me-1" aria-hidden="true"></i>Delete
                                 </button>
 
                                 <!-- Modal Body -->
@@ -69,7 +70,7 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                             </div>
-                                            <div class="modal-body">
+                                            <div class="modal-body text-wrap">
                                                 You are about to destroy this project :
                                                 <strong>{{ $project->title }}</strong> ?
                                             </div>

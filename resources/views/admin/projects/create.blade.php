@@ -1,8 +1,15 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="container">
-        <h3 class="text-center">Create a new project</h3>
+    <div class="bg-dark py-4">
+        <div class="container d-flex justify-content-between align-items-center text-light">
+            <h3 class="my-3 text-uppercase text-center">Create a new project</h3>
+            <a class="btn btn-primary" href="{{ route('admin.projects.index') }}"><i class="fas fa-arrow-left me-1"
+                    aria-hidden="true"></i>Cancel</a>
+        </div>
+    </div>
+    <div class="container mt-4">
+
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -17,8 +24,9 @@
 
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title"
-                    aria-describedby="helpId" placeholder="Es. molestiae cupiditate illo aut" value="{{ old('title') }}" />
+                <input type="text" class="form-control @error('title') is-invalid @enderror" name="title"
+                    id="title" aria-describedby="helpId" placeholder="Es. molestiae cupiditate illo aut"
+                    value="{{ old('title') }}" />
                 <small id="helpId" class="form-text text-muted">Inserte here a title of your project</small>
                 @error('title')
                     <div class="alert alert-danger">{{ $message }}</div>
