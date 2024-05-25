@@ -2,9 +2,9 @@
 
 @section('content')
     <div class="container">
-        <h3 class="text-center">Create a new project</h3>
+        <h3 class="text-center">Modify project : {{ $project->title }}</h3>
         @include('partials.error')
-        <form action="{{ route('admin.projects.update', $project) }}" method="post">
+        <form action="{{ route('admin.projects.update', $project) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -19,7 +19,23 @@
                 @enderror
             </div>
 
-            <div class="mb-3">
+            <div class="d-flex gap-4">
+                <div>
+                    @if (Str::startsWith($project->cover_image, 'https://'))
+                        <img width="140" src="{{ $project->cover_image }}" alt="Cover Image">
+                    @else
+                        <img width="140" src="{{ asset('storage/' . $project->cover_image) }}" alt="Cover Image">
+                    @endif
+                </div>
+                <div class="mb-3">
+                    <label for="cover_image" class="form-label">Modify Cover Image</label>
+                    <input type="file" class="form-control" name="cover_image" id="cover_image" placeholder="cover image"
+                        aria-describedby="fileHelpId" />
+                    <div id="coverImageHelper" class="form-text">Uploade a new cover image</div>
+                </div>
+            </div>
+
+            <div class="my-3">
                 <label for="content" class="form-label">Content</label>
                 <textarea class="form-control" name="content" id="content" rows="3">{{ old('content', $project->content) }}</textarea>
             </div>
