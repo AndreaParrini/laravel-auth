@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Http\Controllers\Controller;
+use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -26,7 +27,7 @@ class ProjectController extends Controller
     public function create()
     {
         //
-        return view('admin.projects.create');
+        return view('admin.projects.create', ['types' => Type::all()]);
     }
 
     /**
@@ -45,10 +46,11 @@ class ProjectController extends Controller
             $val_data['cover_image'] = $image_path;
         }
 
+
+        //dd($val_data);
         Project::create($val_data);
 
         return to_route('admin.projects.index')->with('message', 'Post created successfully');
-        /* dd($val_data); */
     }
 
     /**

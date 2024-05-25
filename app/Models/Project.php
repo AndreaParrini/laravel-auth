@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Project extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'content', 'cover_image', 'slug'];
+    protected $fillable = ['title', 'type_id', 'content', 'cover_image', 'slug'];
 
     /**
      * Get the type that owns the Project
