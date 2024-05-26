@@ -3,7 +3,7 @@
 @section('content')
     <div class="bg-dark py-4">
         <div class="container d-flex justify-content-between align-items-center text-light">
-            <h3 class="my-3 text-uppercase text-center">Projects</h3>
+            <h3 class="my-3 text-uppercase text-center">Types</h3>
             <a class="btn btn-primary" href="{{ route('admin.types.create') }}"> <i class="fa fa-plus me-1"
                     aria-hidden="true"></i>Create</a>
         </div>
