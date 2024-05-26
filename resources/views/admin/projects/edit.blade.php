@@ -37,7 +37,6 @@
                             {{ $type->name }}
                         </option>
                     @endforeach
-                    <option value="">New Delhi</option>
                 </select>
             </div>
 
