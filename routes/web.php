@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome', ['projects' => Project::orderByDesc('id')->take(4)->get()]);
-});
+})->name('home');
 
 Route::resource('projects', GuestProjectController::class)->only(['index', 'show'])->parameters(['projects' => 'project:slug']);
 

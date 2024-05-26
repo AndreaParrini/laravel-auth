@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="bg-dark py-4">
+        <div class="container d-flex justify-content-between align-items-center text-light">
+            <h3 class="my-3 text-uppercase text-center">Projects</h3>
+            <a class="btn btn-primary" href="{{ route('home') }}"> <i class="fa fa-arrow-left me-1"
+                    aria-hidden="true"></i>Home</a>
+        </div>
+
+    </div>
     <div class="container my-4">
         <div class="row row-cols-4 g-3 mb-3">
             @forelse ($projects as $project)
