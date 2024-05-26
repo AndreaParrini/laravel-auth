@@ -11,7 +11,7 @@ class UpdateTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,7 @@ class UpdateTypeRequest extends FormRequest
     {
         return [
             //
+            'name' => 'required|min:5|max:50'
         ];
     }
 }
