@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Guest\ProjectController as GuestProjectController;
 use App\Http\Controllers\ProjectController as ControllersProjectController;
+use App\Http\Controllers\Admin\TypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,8 @@ Route::middleware(['auth', 'verified'])
 
         //Project route here
         Route::resource('/projects', ProjectController::class)->parameters(['projects' => 'project:slug']);
+        //Type route here
+        Route::resource('/types', TypeController::class);
     });
 
 Route::middleware('auth')->group(function () {
