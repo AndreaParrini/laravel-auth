@@ -36,6 +36,13 @@
                                 <div class="card-body text-center">
                                     <h5 class="card-title text-uppercase">{{ $project->title }}</h5>
                                     <h6 class="card-subtitle mb-2 text-muted ">To more info click the card</h6>
+                                    <div class="technologies">
+                                        @forelse ($project->technologies as $technology)
+                                            <span class="badge bg-primary">{{ $technology->name }}</span>
+                                        @empty
+                                            <span>Nessuna tecnologia</span>
+                                        @endforelse
+                                    </div>
                                 </div>
                             </div>
                         </a>
