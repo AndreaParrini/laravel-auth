@@ -40,6 +40,25 @@
                 </select>
             </div>
 
+            <div class="mb-3 d-flex gap-4">
+                @foreach ($technologies as $technology)
+                    <div class="form-check">
+                        @if ($errors->any())
+                            <input class="form-check-input" type="checkbox" value="{{ $technology->id }}"
+                                name="technologies[]" id="technology-{{ $technology->id }}"
+                                {{ in_array($technology->id, old('technologies', [])) ? 'checked' : '' }} />
+                        @else
+                            <input class="form-check-input" type="checkbox" value="{{ $technology->id }}"
+                                name="technologies[]" id="technology-{{ $technology->id }}"
+                                {{ $project->technologies->contains($technology->id) ? 'checked' : '' }} />
+                        @endif
+
+                        <label class="form-check-label" for="technology-{{ $technology->id }}"> {{ $technology->name }}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+
             <div class="d-flex gap-4">
                 <div>
                     @if (Str::startsWith($project->cover_image, 'https://'))
