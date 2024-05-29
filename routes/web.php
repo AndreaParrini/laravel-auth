@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TechnologyController;
 use App\Http\Controllers\Guest\ProjectController as GuestProjectController;
 use App\Http\Controllers\ProjectController as ControllersProjectController;
 use App\Http\Controllers\Admin\TypeController;
@@ -37,6 +38,8 @@ Route::middleware(['auth', 'verified'])
         Route::resource('/projects', ProjectController::class)->parameters(['projects' => 'project:slug']);
         //Type route here
         Route::resource('/types', TypeController::class);
+        //Technology route here
+        Route::resource('/technologies', TechnologyController::class);
     });
 
 Route::middleware('auth')->group(function () {
