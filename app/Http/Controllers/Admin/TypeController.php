@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateTypeRequest;
+use App\Models\Project;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -17,16 +18,7 @@ class TypeController extends Controller
     public function index()
     {
         //
-        return view('admin.types.index', ['types' => Type::orderByDesc('id')->paginate(5)]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-        return view('admin.types.create');
+        return view('admin.types.index', ['types' => Type::orderByDesc('id')->paginate(10)]);
     }
 
     /**
@@ -49,8 +41,9 @@ class TypeController extends Controller
      */
     public function show(Type $type)
     {
-        //
-        return view('admin.types.show', compact('type'));
+        //$allProjectsType = $type->projects;
+        $allProjectsType = Project::where('type_id', $type->id)->paginate(8);
+        return view('admin.types.show', compact('allProjectsType'));
     }
 
     /**
