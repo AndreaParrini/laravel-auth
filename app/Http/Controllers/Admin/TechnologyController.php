@@ -34,7 +34,7 @@ class TechnologyController extends Controller
 
         Technology::create($val_data);
 
-        return to_route('admin.technologies.index');
+        return to_route('admin.technologies.index')->with('message', 'Technology created successfully');;
     }
 
     /**
@@ -45,13 +45,6 @@ class TechnologyController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Technology $technology)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -59,6 +52,15 @@ class TechnologyController extends Controller
     public function update(UpdateTechnologyRequest $request, Technology $technology)
     {
         //
+        //dd($request->all());
+        $val_data = $request->validated();
+        $val_data['slug'] = Str::slug($val_data['name'], '-');
+
+        //dd($val_data);
+
+        $technology->update($val_data);
+
+        return to_route('admin.technologies.index')->with('message', 'Technology whit ID ' . $technology->id . ' updated successfully');
     }
 
     /**
@@ -67,5 +69,8 @@ class TechnologyController extends Controller
     public function destroy(Technology $technology)
     {
         //
+        $technology->delete();
+
+        return to_route('admin.technologies.index')->with('message', 'Technology with ID ' . $technology->id . '  cancelled successfully');
     }
 }
