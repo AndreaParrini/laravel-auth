@@ -22,7 +22,15 @@
             <div class="col-6 my-5 text-center ">
                 <h3 class="text-uppercase my-4">{{ $project->title }}</h3>
                 <p class="fst-italic">{{ $project->content }}</p>
-                <p>Type: {{ $project->type ? $project->type->name : 'No Type to this project' }}</p>
+                <p><strong>Type:</strong> {{ $project->type ? $project->type->name : 'No Type to this project' }}</p>
+                <div class="technologies">
+                    <strong>Technologies:</strong>
+                    @forelse ($project->technologies as $technology)
+                        <span class="badge bg-primary">{{ $technology->name }}</span>
+                    @empty
+                        <span>Non ci sono tecnologie associate a questo progetto!</span>
+                    @endforelse
+                </div>
             </div>
         </div>
 
