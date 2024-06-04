@@ -26,7 +26,8 @@ class UpdateTypeRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required|min:5|max:50'
+            'name' => 'required|min:5|max:50',
+            'hiddenField' => 'exists:types,id'
         ];
     }
 
