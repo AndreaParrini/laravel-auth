@@ -6,6 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateTechnologyRequest extends FormRequest
 {
+
+    protected $errorBag = 'nameTechnology';
+
     /**
      * Determine if the user is authorized to make this request.
      */

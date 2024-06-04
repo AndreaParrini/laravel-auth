@@ -13,7 +13,6 @@
                 {{ session('message') }}
             </div>
         @endif
-        @include('partials.error')
         <div class="container">
             <div class="row rows-cols-2 gap-3">
                 <div class="col">
@@ -56,19 +55,18 @@
                                     <tr class="">
                                         <td scope="row">{{ $technology->id }}</td>
                                         <td>
-                                            @include('partials.error')
                                             <form action="{{ route('admin.technologies.update', $technology) }}"
                                                 method="post" enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PATCH')
 
                                                 <input type="text"
-                                                    class="form-control @error('name') is-invalid @enderror" name="name"
-                                                    id="name" aria-describedby="helpId"
+                                                    class="form-control @error('name', 'nameTechnology') is-invalid @enderror"
+                                                    name="name" id="name" aria-describedby="helpId"
                                                     placeholder="Es. Html, Css, Js ..."
                                                     value="{{ old('name', $technology->name) }}" />
-                                                @error('name')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                @error('name', 'nameTechnology')
+                                                    <div class="text-danger">{{ $message }}</div>
                                                 @enderror
 
                                             </form>
