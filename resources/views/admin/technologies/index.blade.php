@@ -13,10 +13,10 @@
                 {{ session('message') }}
             </div>
         @endif
+        @include('partials.error')
         <div class="container">
             <div class="row rows-cols-2 gap-3">
                 <div class="col">
-                    @include('partials.error')
                     <form action="{{ route('admin.technologies.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
@@ -24,7 +24,7 @@
                             <label for="name" class="form-label">Add new Technology</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                                 id="name" aria-describedby="helpId" placeholder="Es. Html, Css, Js ..."
-                                value="{{ old('name') }}" />
+                                value="{{ old('hiddenField') == 'create' ? old('name') : '' }}" />
                             <small id="helpId" class="form-text text-muted">Insert here a name of your new
                                 technology</small>
                             @error('name')
@@ -32,10 +32,12 @@
                             @enderror
                         </div>
 
+                        <input type="hidden" name="hiddenField" value="create">
+
+
                         <button type="submit" class="btn btn-primary">
                             Add
                         </button>
-
                     </form>
                 </div>
                 <div class="col">
@@ -61,14 +63,20 @@
                                                 @method('PATCH')
 
                                                 <input type="text"
-                                                    class="form-control @error('name', 'nameTechnology') is-invalid @enderror"
+                                                    class="form-control  @if (old('hiddenField') == $technology->id) @error('name', 'nameTechnology') is-invalid @enderror @endif"
                                                     name="name" id="name" aria-describedby="helpId"
                                                     placeholder="Es. Html, Css, Js ..."
-                                                    value="{{ old('name', $technology->name) }}" />
-                                                @error('name', 'nameTechnology')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                                    value="{{ old('hiddenField') == $technology->id ? old('name', $technology->name) : $technology->name }}" />
 
+
+                                                @if (old('hiddenField') == $technology->id)
+                                                    @error('name', 'nameTechnology')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                @endif
+
+                                                {{-- Aggiunto un campo nascosto e gli passo l'id, così in caso di errore riesco a capire quale ha dato errore e quindi gestire l'old del name e gli errori solo per quell'input li --}}
+                                                <input type="hidden" name="hiddenField" value="{{ $technology->id }}">
                                             </form>
                                         </td>
                                         <td>{{ $technology->slug }}</td>

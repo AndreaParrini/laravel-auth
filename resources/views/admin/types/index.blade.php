@@ -13,10 +13,10 @@
                 {{ session('message') }}
             </div>
         @endif
+        @include('partials.error')
         <div class="container">
             <div class="row rows-cols-2 gap-3">
                 <div class="col">
-                    @include('partials.error')
                     <form action="{{ route('admin.types.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
@@ -24,13 +24,16 @@
                             <label for="name" class="form-label">Add new Type</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                                 id="name" aria-describedby="helpId" placeholder="Es. Programming, BackEnd"
-                                value="{{ old('name') }}" />
+                                value="{{ old('hiddenField') == 'create' ? old('name') : '' }}" />
                             <small id="helpId" class="form-text text-muted">Insert here a name of your new type</small>
                             @error('name')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
 
                         </div>
+
+                        <input type="hidden" name="hiddenField" value="create">
+
 
                         <button type="submit" class="btn btn-primary">
                             Add
@@ -61,13 +64,17 @@
                                                 @method('PATCH')
 
                                                 <input type="text"
-                                                    class="form-control @error('name', 'nameType') is-invalid @enderror"
+                                                    class="form-control @if (old('hiddenField') == $type->id) @error('name', 'nameType') is-invalid @enderror @endif"
                                                     name="name" id="name" aria-describedby="helpId"
                                                     placeholder="Es. Programming, BackEnd"
-                                                    value="{{ old('name', $type->name) }}" />
-                                                @error('name', 'nameType')
-                                                    <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                                    value="{{ old('hiddenField') == $type->id ? old('name', $type->name) : $type->name }}" />
+                                                @if (old('hiddenField') == $type->id)
+                                                    @error('name', 'nameType')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                @endif
+
+                                                <input type="hidden" name="hiddenField" value="{{ $type->id }}">
 
                                             </form>
                                         </td>
