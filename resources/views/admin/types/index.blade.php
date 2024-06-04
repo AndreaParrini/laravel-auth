@@ -13,7 +13,6 @@
                 {{ session('message') }}
             </div>
         @endif
-        @include('partials.error')
         <div class="container">
             <div class="row rows-cols-2 gap-3">
                 <div class="col">
@@ -30,6 +29,7 @@
                             @error('name')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
+
                         </div>
 
                         <button type="submit" class="btn btn-primary">
@@ -55,19 +55,18 @@
                                     <tr class="">
                                         <td scope="row">{{ $type->id }}</td>
                                         <td>
-                                            @include('partials.error')
                                             <form action="{{ route('admin.types.update', $type) }}" method="post"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 @method('PATCH')
 
                                                 <input type="text"
-                                                    class="form-control @error('name') is-invalid @enderror" name="name"
-                                                    id="name" aria-describedby="helpId"
+                                                    class="form-control @error('name', 'nameType') is-invalid @enderror"
+                                                    name="name" id="name" aria-describedby="helpId"
                                                     placeholder="Es. Programming, BackEnd"
                                                     value="{{ old('name', $type->name) }}" />
-                                                @error('name')
-                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                @error('name', 'nameType')
+                                                    <div class="text-danger">{{ $message }}</div>
                                                 @enderror
 
                                             </form>

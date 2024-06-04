@@ -6,6 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateTypeRequest extends FormRequest
 {
+
+    protected $errorBag = 'nameType';
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,6 +27,15 @@ class UpdateTypeRequest extends FormRequest
         return [
             //
             'name' => 'required|min:5|max:50'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'The :attribute is required',
+            'name.min' => 'The :attribute is too short, must be have 5 characters.',
+
         ];
     }
 }
