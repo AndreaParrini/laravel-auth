@@ -9,11 +9,19 @@ use App\Models\Project;
 class ProjectController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
+
+        if ($request->has('search')) {
+            return response()->json([
+                'success' => true,
+                'results' => Project::with(['technologies', 'type'])->orderByDesc('id')->where('title', 'LIKE', '%' . $request->search . '%')->paginate(6),
+            ]);
+        };
+
         return response()->json([
             'success' => true,
-            'results' => Project::with(['technologies', 'type'])->orderByDesc('id')->paginate(6)
+            'results' => Project::with(['technologies', 'type'])->orderByDesc('id')->paginate(6),
         ]);
     }
 
